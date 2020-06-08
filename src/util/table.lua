@@ -54,9 +54,8 @@ function sortByName(t)
     end
     
     -- Remove double entries (if any) and order the list of names.
-    removeDuplicates(names)
+    names = removeDuplicates(names)
     table.sort(names)
-    
 	-- Generate a final list with the entries of T in the order that I want to have them. 
     local orderedEntryList={}
 	for k, name in ipairs(names) do
