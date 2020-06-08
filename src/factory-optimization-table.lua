@@ -114,7 +114,7 @@ end     -- It feels like there is one end to many here, but I do not know where 
 -- Added it so it would be easier for people to see which factory is which.
 local function printInput(list)
     for k, good in pairs(list) do
-        print(string.format("%s (%s)", good.name, good.amount))
+        print(string.format(" %s (%s)", good.name, good.amount))
     end
 end
 
