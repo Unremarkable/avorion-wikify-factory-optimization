@@ -105,7 +105,7 @@ local function printProductionCell(outputList) do
         if good.level == nil then
             good.level = "-" 
         end
-        print(string.format(" %s (%s, %s, %s) ", good.good, good.quantity, good.price, good.level))
+        print(string.format("* %s (%s, %s, %s) ", good.good, good.quantity, good.price, good.level))
         end 
     end
 end     -- It feels like there is one end to many here, but I do not know where it is coming from.    
@@ -114,7 +114,7 @@ end     -- It feels like there is one end to many here, but I do not know where 
 -- Added it so it would be easier for people to see which factory is which.
 local function printInput(list)
     for k, good in pairs(list) do
-        print(string.format(" %s (%s)", good.name, good.amount))
+        print(string.format("* %s (%s)", good.name, good.amount))
     end
 end
 
