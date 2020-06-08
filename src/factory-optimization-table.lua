@@ -109,14 +109,6 @@ local function printProductionCell(outputList) do
         end 
     end
 end     -- It feels like there is one end to many here, but I do not know where it is coming from.    
-    
--- simple for loop that prints the data for the input list
--- Added it so it would be easier for people to see which factory is which.
-local function printInput(list)
-    for k, good in pairs(list) do
-        print(string.format("* %s (%s)", good.name, good.amount))
-    end
-end
 
 -- Prints a list of factories with their PC cap and products.
 local function printList(factories)    
@@ -126,8 +118,6 @@ local function printList(factories)
         print("|" .. optimalProductionCapacity(factory.output))
         print("|")
         printProductionCell(factory.output)
-        print("|")
-        printInput(factory.input)
     end
 end    
 
@@ -137,7 +127,6 @@ local function printHeader()
    print("! style=\"text-align:left;\"| Factory")
    print("! Production Capacity cap")
    print("! Produces (quantity, Price, Level)")
-   print("! Ingredients (quantity)")
 end
 
 local function main()
