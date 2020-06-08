@@ -67,10 +67,24 @@ local function genOutputList(production)
                     
     return list
 end
+
+-- Creates a string combining the factory and output. For comparison. 
+local function genFacString(factory)
+  local result = {}
+  table.insert(result, factory.name)
+  for k, v in pairs(factory.output) do
+    for k2, attr in pairs(v) do
+      table.insert(result, attr)
+    end
+  end
+  return table.concat(result)
+end
     
--- Pulls the factories from the productions file and organizes them by name.
+-- Pulls the factories from the productions file and generates a new list with all the factories, combined
+-- with relevant data from the goods file.
 local function extractFactoriesData()
   local factories = {} -- factories:{ factory:string = {k:int = {quantity, good, level, price}}}
+  local set = {}
   i = 1
   
   for key, production in pairs(productions) do
@@ -85,15 +99,20 @@ local function extractFactoriesData()
             production.factory = production.factory:gsub("${good}", production.results[1].name)
     end
       
-     local factory = {}
-     factory.name = production.factory
-     factory.output = genOutputList(production)
-     factory.input = production.ingredients
+    local factory = {}
+    factory.name = production.factory
+    factory.output = genOutputList(production)
+    
+    -- Filter out duplicate factories with a different input but the same output.
+    -- We dont have to care about those here.
+    local string = genFacString(factory)
+    
+    if not set[string] then
+      factories[i] = factory
+      set[string] = true
+    end
      
-     factories[i] = factory
-
-     
-     i = i + 1
+    i = i + 1
   end
   return factories 
 end
