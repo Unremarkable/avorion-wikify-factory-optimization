@@ -41,3 +41,40 @@ function sortedPairs(t)
     end
   end
 end
+
+-- Sorts the pairs in the table by the name attribute of the value.
+function sortByName(t)
+    local names = {} -- names of all the factories
+    local entriesWithName={} -- Given a name, which entries in t are about that name?
+    
+    -- Find the names, and map which keys have that name.
+    for k, v in pairs(t) do
+        table.insert(names, v.name)
+        createAndInsert(entriesWithName, v.name, {}, k)
+    end
+    
+    -- Remove double entries (if any) and order the list of names.
+    removeDuplicates(names)
+    table.sort(names)
+    
+	-- Generate a final list with the entries of T in the order that I want to have them. 
+    local orderedEntryList={}
+	for k, name in ipairs(names) do
+	    for k2, index in ipairs(entriesWithName[name]) do
+			table.insert(orderedEntryList, index)
+		end
+	end
+    
+    -- Return an iterator that iterates over the table entries in order of name.
+    local i = 1
+    return function()
+        local k = orderedEntryList[i]
+        if k then
+            local v = t[k]
+            i = i + 1
+            return k, v
+        end
+    end
+end
+    
+    
